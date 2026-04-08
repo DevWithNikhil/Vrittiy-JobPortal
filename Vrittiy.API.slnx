@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Vrittiy.API/Vrittiy.API.csproj" />
+  <Project Path="Vrittiy.Core/Vrittiy.Core.csproj" />
+  <Project Path="Vrittiy.Infrastructure/Vrittiy.Infrastructure.csproj" />
+</Solution>
