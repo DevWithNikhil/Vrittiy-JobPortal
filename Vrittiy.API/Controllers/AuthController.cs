@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Vrittiy.API.DTOs;
+using Vrittiy.API.Services;
 using Vrittiy.Core.Entities;
 using Vrittiy.Infrastructure.Data;
 
@@ -18,6 +19,20 @@ namespace Vrittiy.API.Controllers
             _context = context; 
         }
 
+
+        [HttpPost("login")]
+        public IActionResult Login(LoginDto dto, JwtService jwtService)
+        {
+            var user = _context.Users
+                .FirstOrDefault(x => x.Email == dto.Email && x.PasswordHash == dto.Password);
+
+            if (user == null)
+                return Unauthorized("Invalid credentials");
+
+            var token = jwtService.GenerateToken(user);
+
+            return Ok(new { token });
+        }
 
 
         [HttpPost("register")]

@@ -1,5 +1,9 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Vrittiy.API.Services;
 using Vrittiy.Infrastructure.Data;
 
 namespace Vrittiy.API
@@ -10,9 +14,31 @@ namespace Vrittiy.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Add services to the container.
+
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Add services to the container.
+            builder.Services.AddScoped<JwtService>();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(key)
+                    };
+                });
+
+            builder.Services.AddAuthorization();
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -28,8 +54,8 @@ namespace Vrittiy.API
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

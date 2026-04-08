@@ -2,6 +2,8 @@
 using Vrittiy.API.DTOs;
 using Vrittiy.Core.Entities;
 using Vrittiy.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Vrittiy.API.Controllers;
 
@@ -24,23 +26,22 @@ public class JobsController : ControllerBase
         return Ok(jobs);
     }
 
+    [Authorize(Roles = "Recruiter")]
     [HttpPost]
     public IActionResult CreateJob(JobDto dto)
     {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
         var job = new Job
         {
             Title = dto.Title,
             Description = dto.Description,
             Location = dto.Location,
-            RecruiterId = 1 // temporary hardcoded
+            RecruiterId = userId
         };
 
         _context.Jobs.Add(job);
         _context.SaveChanges();
 
-        return Ok(new
-        {
-            message = "Job Created Successfully"
-        });
+        return Ok("Job Created");
     }
 }
