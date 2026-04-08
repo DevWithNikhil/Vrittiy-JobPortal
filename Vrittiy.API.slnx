@@ -2,4 +2,5 @@
   <Project Path="Vrittiy.API/Vrittiy.API.csproj" />
   <Project Path="Vrittiy.Core/Vrittiy.Core.csproj" />
   <Project Path="Vrittiy.Infrastructure/Vrittiy.Infrastructure.csproj" />
+  <Project Path="Vrittiy.Web/Vrittiy.Web.csproj" Id="ee865373-a3b0-468e-8b07-30c1d0026500" />
 </Solution>

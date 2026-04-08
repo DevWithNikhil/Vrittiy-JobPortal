@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@model List<dynamic>
+
+<h2>Jobs</h2>
+
+@foreach (var job in Model)
+{
+    <div>
+        <h4>@job.title</h4>
+        <p>@job.description</p>
+        <p>@job.location</p>
+
+        <a href="/Jobs/Apply/@job.id">Apply</a>
+    </div>
+}

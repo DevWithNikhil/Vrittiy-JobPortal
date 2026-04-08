@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Apply";
+}
+
+<h1>Apply</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="jobId" value="@ViewBag.JobId" />
+
+    <input type="file" name="file" />
+
+    <button type="submit">Apply</button>
+</form>
