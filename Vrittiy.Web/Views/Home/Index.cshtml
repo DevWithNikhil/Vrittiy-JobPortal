@@ -1,13 +1,35 @@
 ﻿@{
+    var token = Context.Session.GetString("JWToken");
+    var role = Context.Session.GetString("UserRole");
+}
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1>Welcome to Vrittiy</h1>
+<div class="container text-center mt-5">
+    <h1 class="display-4">Welcome to Vrittiy</h1>
+    <p class="lead">Find jobs or hire talent easily</p>
 
-    <p>Find jobs or hire talent easily.</p>
+    <div class="mt-4">
 
-    <a href="/Jobs">Browse Jobs</a>
-    <a href="/Account/Login">Login</a>
-    <a href="/Account/Register">Register</a>
+        @if (Context.Session.GetString("JWToken") == null)
+        {
+            <a class="btn btn-primary m-2" href="/Account/Login">Login</a>
+            <a class="btn btn-outline-light m-2" href="/Account/Register">Register</a>
+        }
+
+        @if (Context.Session.GetString("UserRole") == "User")
+        {
+            <a class="btn btn-primary m-2" href="/Jobs">Browse Jobs</a>
+            <a class="btn btn-outline-light m-2" href="/Jobs/MyApplications">My Applications</a>
+        }
+
+        @if (Context.Session.GetString("UserRole") == "Recruiter")
+        {
+            <a class="btn btn-primary m-2" href="/Jobs/Create">Post Job</a>
+            <a class="btn btn-outline-light m-2" href="/Jobs/MyPostedJobs">My Jobs</a>
+        }
+
+    </div>
 </div>

@@ -8,119 +8,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Vrittiy.Web</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Vrittiy.Web.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-
         @{
             var role = Context.Session.GetString("UserRole");
             var email = Context.Session.GetString("UserEmail");
+            var token = Context.Session.GetString("JWToken");
         }
 
-        <nav>
-            <a href="/">Home</a>
-            <a href="/Jobs">Jobs</a>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
 
-            @if (role == "User")
-            {
-                <a href="/Jobs/MyApplications">My Applications</a>
-            }
+                <!-- Logo / App Name -->
+                <a class="navbar-brand" href="/">Vrittiy</a>
 
-            @if (role == "Recruiter")
-            {
-                <a href="/Jobs/Create">Post Job</a>
-                <a href="/Jobs/MyPostedJobs">My Jobs</a>
-            }
+                <!-- Navigation Links -->
+                <div>
 
-            @if (!string.IsNullOrEmpty(role))
-            {
-                <span>Hello, @email (@role)</span>
-                <a href="/Account/Logout">Logout</a>
-            }
-            else
-            {
-                <a href="/Account/Login">Login</a>
-                <a href="/Account/Register">Register</a>
-            }
-        </nav>
-        @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vrittiy.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                    <a class="nav-link d-inline" href="/">Home</a>
 
-
-                @{
-                    var name = Context.Session.GetString("UserName");
-                    var role = Context.Session.GetString("UserRole");
-                }
-
-                @if (Context.Session.GetString("JWToken") != null)
-                {
-                    <span>
-                        Hello, @Context.Session.GetString("UserEmail")
-                        (@Context.Session.GetString("UserRole"))
-                    </span>
-
-                    <a href="/Jobs">Jobs</a>
-                    <a href="/Jobs/MyApplications">My Applications</a>
-                    <a href="/Account/Logout">Logout</a>
-                }
-                else
-                {
-                    @if (role == null)
+                    @if (Context.Session.GetString("UserRole") == "User")
                     {
-                        <a href="/Account/Login">Login</a>
-                        <a href="/Account/Register">Register</a>
+                        <a class="nav-link d-inline" href="/Jobs">Browse Jobs</a>
+                        <a class="nav-link d-inline" href="/Jobs/MyApplications">My Applications</a>
                     }
-                }
 
-                @if (Context.Session.GetString("UserRole") == "Recruiter")
-                {
-                    <a href="/Jobs/MyPostedJobs">My Jobs</a>
-                }
+                    @if (Context.Session.GetString("UserRole") == "Recruiter")
+                    {
+                        <a class="nav-link d-inline" href="/Jobs/Create">Post Job</a>
+                        <a class="nav-link d-inline" href="/Jobs/MyPostedJobs">My Jobs</a>
+                    }
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    @if (Context.Session.GetString("JWToken") != null)
+                    {
+                        <span class="ms-3">
+                            @Context.Session.GetString("UserEmail")
+                        </span>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Jobs" asp-action="Index">Jobs</a>
-                        </li>
+                        <a class="nav-link d-inline" href="/Account/Logout">Logout</a>
+                    }
+                    else
+                    {
+                        <a class="nav-link d-inline" href="/Account/Login">Login</a>
+                        <a class="nav-link d-inline" href="/Account/Register">Register</a>
+                    }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
-
-                        @if (role == "Recruiter")
-                            {
-                                <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Jobs" asp-action="Create">Post Job</a>
-                                </li>
-                            }
-
-                    </ul>
                 </div>
+
             </div>
-        </nav> *@
+        </nav>
     </header>
-    <div class="container">
+    <div class="container mt-4">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Vrittiy.Web - <a asp-area="" asp-controller="Jobs" asp-action="Index">Privacy</a>
+    <footer class="footer mt-5 py-3" style="background-color:#161b22;">
+        <div class="container text-center">
+            <span class="text-muted">
+                © 2026 Vrittiy • Built with ASP.NET Core
+            </span>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

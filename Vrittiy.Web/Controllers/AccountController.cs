@@ -25,11 +25,7 @@ public class AccountController : Controller
         HttpContext.Session.SetString("UserRole", (string)data.role);
         HttpContext.Session.SetString("UserName", (string)data.name);
 
-        if ((string)data.role == "Recruiter")
-            return RedirectToAction("Create", "Jobs");
-
-        else
-            return RedirectToAction("Index", "Jobs");
+        return RedirectToAction("Index", "Home");
     }
 
     public IActionResult Register() => View();

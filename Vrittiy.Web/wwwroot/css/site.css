@@ -1,3 +1,7 @@
+* {
+    transition: all 0.2s ease;
+}
+
 html {
   font-size: 14px;
 }
@@ -21,6 +25,7 @@ body {
   margin-bottom: 60px;
 }
 
+
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
@@ -29,3 +34,113 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+
+/* ================= DARK THEME START ================= */
+
+body {
+    background-color: #0d1117;
+    color: #e6edf3;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #161b22 !important;
+    border-bottom: 1px solid #30363d;
+}
+
+.navbar-brand, .nav-link {
+    color: #e6edf3 !important;
+}
+
+    .nav-link:hover {
+        color: #58a6ff !important;
+    }
+
+/* Cards */
+.card {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(88, 166, 255, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
+    }
+
+
+/* Title */
+.card-title {
+    color: #58a6ff; /* Bright blue */
+    font-weight: 600;
+}
+
+/* Description */
+.card p {
+    color: #c9d1d9; /* Light gray-white */
+}
+
+/* Location / small text */
+.card small {
+    color: #8b949e; /* softer gray */
+}
+
+/* Strong text (like location label) */
+.card strong {
+    color: #e6edf3;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #238636;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #2ea043;
+    }
+
+.btn-outline-light {
+    border-color: #58a6ff;
+    color: #58a6ff;
+}
+
+    .btn-outline-light:hover {
+        background-color: #58a6ff;
+        color: #0d1117;
+    }
+
+/* Inputs */
+.form-control {
+    background-color: #0d1117;
+    color: #e6edf3;
+    border: 1px solid #30363d;
+}
+
+    .form-control:focus {
+        background-color: #0d1117;
+        color: #fff;
+        border-color: #58a6ff;
+        box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+    }
+
+/* Links */
+a {
+    color: #58a6ff;
+}
+
+    a:hover {
+        color: #79c0ff;
+    }
+
+/* Footer */
+.footer {
+    background-color: #161b22;
+    border-top: 1px solid #30363d;
+    color: #8b949e;
+}
+
+/* ================= DARK THEME END ================= */

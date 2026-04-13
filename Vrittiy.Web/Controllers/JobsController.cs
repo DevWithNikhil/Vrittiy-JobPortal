@@ -13,8 +13,14 @@ public class JobsController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var data = await _api.GetAsync("jobs");
+        var role = HttpContext.Session.GetString("UserRole");
 
+        if (role == "Recruiter")
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+        var data = await _api.GetAsync("jobs");
         var jobs = JsonConvert.DeserializeObject<List<dynamic>>(data);
 
         return View(jobs);
@@ -23,6 +29,13 @@ public class JobsController : Controller
 
     public IActionResult Apply(int id)
     {
+        var role = HttpContext.Session.GetString("UserRole");
+
+        if (role != "User")
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         ViewBag.JobId = id;
         return View();
     }

@@ -4,22 +4,28 @@
     var role = Context.Session.GetString("UserRole");
 }
 
-<h1>Index</h1>
-
 @model List<dynamic>
 
-<h2>Jobs</h2>
+<div class="container mt-4">
+    <h2>Available Jobs</h2>
 
-@foreach (var job in Model)
-{
-    <div>
-        <h4>@job.title</h4>
-        <p>@job.description</p>
-        <p>@job.location</p>
-
-        @if (role == "User")
+    <div class="row">
+        @foreach (var job in Model)
         {
-            <a href="/Jobs/Apply/@job.id">Apply</a>
+            <div class="col-md-4">
+                <div class="card p-3 mb-4">
+                    <h5 class="card-title">@job.title</h5>
+                    <p class="mt-2">@job.description</p>
+
+                    <small class="d-block mt-2">
+                        <strong>Location:</strong> @job.location
+                    </small>
+                    @if (Context.Session.GetString("UserRole") == "User")
+                    {
+                        <a class="btn btn-primary" href="/Jobs/Apply/@job.id">Apply</a>
+                    }
+                </div>
+            </div>
         }
     </div>
-}
+</div>
