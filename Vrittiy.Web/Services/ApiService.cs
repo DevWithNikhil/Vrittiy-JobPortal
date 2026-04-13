@@ -18,6 +18,7 @@ namespace Vrittiy.Web.Services
             _httpContext = context;
         }
 
+
         private void AddToken()
         {
             var token = _httpContext.HttpContext.Session.GetString("JWToken");
@@ -51,4 +52,5 @@ namespace Vrittiy.Web.Services
         }
 
     }
+
 }

@@ -22,8 +22,14 @@ public class AccountController : Controller
         dynamic data = JsonConvert.DeserializeObject(response);
 
         HttpContext.Session.SetString("JWToken", (string)data.token);
+        HttpContext.Session.SetString("UserRole", (string)data.role);
+        HttpContext.Session.SetString("UserName", (string)data.name);
 
-        return RedirectToAction("Index", "Jobs");
+        if ((string)data.role == "Recruiter")
+            return RedirectToAction("Create", "Jobs");
+
+        else
+            return RedirectToAction("Index", "Jobs");
     }
 
     public IActionResult Register() => View();
@@ -34,5 +40,11 @@ public class AccountController : Controller
         await _api.PostAsync("auth/register", new { name, email, password, role });
 
         return RedirectToAction("Login");
+    }
+
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Index", "Home");
     }
 }

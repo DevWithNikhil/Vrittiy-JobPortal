@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,6 +21,33 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+
+                @{
+                    var name = Context.Session.GetString("UserName");
+                    var role = Context.Session.GetString("UserRole");
+                }
+
+                @if (Context.Session.GetString("JWToken") != null)
+                {
+                    <span>
+                        Hello, @Context.Session.GetString("UserEmail")
+                        (@Context.Session.GetString("UserRole"))
+                    </span>
+
+                    <a href="/Jobs">Jobs</a>
+                    <a href="/Jobs/MyApplications">My Applications</a>
+                    <a href="/Account/Logout">Logout</a>
+                }
+                else
+                {
+                    @if (role == null)
+                    {
+                        <a href="/Account/Login">Login</a>
+                        <a href="/Account/Register">Register</a>
+                    }
+                }
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
@@ -33,9 +63,12 @@
                             <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Jobs" asp-action="Create">Post Job</a>
-                        </li>
+                        @if (role == "Recruiter")
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Jobs" asp-action="Create">Post Job</a>
+                                </li>
+                            }
 
                     </ul>
                 </div>

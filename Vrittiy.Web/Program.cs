@@ -12,8 +12,8 @@ namespace Vrittiy.Web
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddHttpClient<ApiService>();
-            builder.Services.AddHttpContextAccessor();
             builder.Services.AddSession();
+            builder.Services.AddHttpContextAccessor();
 
 
             var app = builder.Build();

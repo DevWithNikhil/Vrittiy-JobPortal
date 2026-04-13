@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    var role = Context.Session.GetString("UserRole");
 }
 
 <h1>Index</h1>
@@ -16,6 +17,9 @@
         <p>@job.description</p>
         <p>@job.location</p>
 
-        <a href="/Jobs/Apply/@job.id">Apply</a>
+        @if (role == "User")
+        {
+            <a href="/Jobs/Apply/@job.id">Apply</a>
+        }
     </div>
 }

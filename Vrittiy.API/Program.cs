@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 using Vrittiy.API.Services;
 using Vrittiy.Infrastructure.Data;
@@ -34,7 +35,9 @@ namespace Vrittiy.API
 
                         ValidIssuer = builder.Configuration["Jwt:Issuer"],
                         ValidAudience = builder.Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(key)
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+
+                        RoleClaimType = ClaimTypes.Role
                     };
                 });
 

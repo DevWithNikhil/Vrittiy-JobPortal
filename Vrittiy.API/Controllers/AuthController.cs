@@ -31,7 +31,12 @@ namespace Vrittiy.API.Controllers
 
             var token = jwtService.GenerateToken(user);
 
-            return Ok(new { token });
+            return Ok(new
+            {
+                token = token,
+                role = user.Role,
+                name = user.Name
+            });
         }
 
 
