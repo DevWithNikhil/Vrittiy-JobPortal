@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "MyPostedJobs";
+}
+
+@model List<dynamic>
+
+<h2>My Jobs & Applications</h2>
+
+@foreach (var job in Model)
+{
+    <div style="border:1px solid black; margin:10px; padding:10px;">
+
+        <h3>@job.title</h3>
+
+        <h4>Applicants:</h4>
+
+        @if (job.applications.Count == 0)
+        {
+            <p>No applications yet</p>
+        }
+        else
+        {
+            @foreach (var app in job.applications)
+            {
+                <div style="margin-left:20px;">
+                    <p><b>Name:</b> @app.name</p>
+                    <p><b>Email:</b> @app.email</p>
+
+                    <a href="/resumes/@app.resumePath" target="_blank">
+                        View Resume
+                    </a>
+                </div>
+            }
+        }
+
+    </div>
+}
+

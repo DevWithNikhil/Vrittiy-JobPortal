@@ -30,31 +30,21 @@ public class JobsController : Controller
     [HttpPost]
     public async Task<IActionResult> Apply(int jobId, IFormFile file)
     {
-        // 🔴 Safety check
-        if (file == null || file.Length == 0)
-        {
-            return Content("File not selected");
-        }
+        var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
 
-        // ✅ Correct folder path
-        var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/resumes");
-
-        // ✅ Create folder if not exists
-        if (!Directory.Exists(folderPath))
-        {
-            Directory.CreateDirectory(folderPath);
-        }
-
-        // ✅ Save file
-        var filePath = Path.Combine(folderPath, file.FileName);
+        
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(),
+            "wwwroot/resumes", fileName);
 
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
             await file.CopyToAsync(stream);
         }
 
-        // ✅ Call API
-        var response = await _api.PostAsync($"applications/apply?jobId={jobId}", new { });
+        await _api.PostAsync(
+            $"applications/apply?jobId={jobId}&resumePath={fileName}",
+            new { }
+        );
 
         return RedirectToAction("Index");
     }
@@ -77,5 +67,14 @@ public class JobsController : Controller
         var apps = JsonConvert.DeserializeObject<List<dynamic>>(data);
 
         return View(apps);
+    }
+
+    public async Task<IActionResult> MyPostedJobs()
+    {
+        var data = await _api.GetAsync("applications/my-jobs");
+
+        var jobs = JsonConvert.DeserializeObject<List<dynamic>>(data);
+
+        return View(jobs);
     }
 }

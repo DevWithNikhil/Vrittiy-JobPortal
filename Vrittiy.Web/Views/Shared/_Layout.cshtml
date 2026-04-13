@@ -14,7 +14,39 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+        @{
+            var role = Context.Session.GetString("UserRole");
+            var email = Context.Session.GetString("UserEmail");
+        }
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/Jobs">Jobs</a>
+
+            @if (role == "User")
+            {
+                <a href="/Jobs/MyApplications">My Applications</a>
+            }
+
+            @if (role == "Recruiter")
+            {
+                <a href="/Jobs/Create">Post Job</a>
+                <a href="/Jobs/MyPostedJobs">My Jobs</a>
+            }
+
+            @if (!string.IsNullOrEmpty(role))
+            {
+                <span>Hello, @email (@role)</span>
+                <a href="/Account/Logout">Logout</a>
+            }
+            else
+            {
+                <a href="/Account/Login">Login</a>
+                <a href="/Account/Register">Register</a>
+            }
+        </nav>
+        @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vrittiy.Web</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -48,6 +80,11 @@
                     }
                 }
 
+                @if (Context.Session.GetString("UserRole") == "Recruiter")
+                {
+                    <a href="/Jobs/MyPostedJobs">My Jobs</a>
+                }
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
@@ -73,7 +110,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> *@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
