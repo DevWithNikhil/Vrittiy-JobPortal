@@ -1,18 +1,41 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Apply";
 }
 
-<<div class="container mt-4">
-    <h2>Apply for Job</h2>
+@model dynamic
 
-    <form method="post" enctype="multipart/form-data" class="mt-3">
-        <input type="hidden" name="jobId" value="@ViewBag.JobId" />
+<div class="container mt-5">
 
-        <div class="mb-3">
-            <input type="file" name="file" class="form-control" />
+    <!-- Job Details -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="card-title">@Model.title</h3>
+            <p style="white-space: pre-line;">
+                @Model.description
+            </p>
+
+            <small class="d-block mt-2">
+                <strong>Location:</strong> @Model.location
+            </small>
+
         </div>
+    </div>
 
-        <button class="btn btn-primary">Apply</button>
-    </form>
+    <!-- Apply Form -->
+    <div class="card">
+        <div class="card-body">
+            <h4 class="mb-3">Upload Resume</h4>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" name="jobId" value="@Model.id" />
+
+                <div class="mb-3">
+                    <input type="file" name="file" class="form-control" required />
+                </div>
+
+                <button class="btn btn-primary w-100">Apply Now</button>
+            </form>
+        </div>
+    </div>
+
 </div>

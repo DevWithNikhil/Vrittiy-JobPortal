@@ -24,12 +24,12 @@
             <div class="container">
 
                 <!-- Logo / App Name -->
-                <a class="navbar-brand" href="/">Vrittiy</a>
+                <a class="navbar-brand" href="/">Vrittiy.COM</a>
 
                 <!-- Navigation Links -->
                 <div>
 
-                    <a class="nav-link d-inline" href="/">Home</a>
+                    @* <a class="nav-link d-inline" href="/">Home</a> *@
 
                     @if (Context.Session.GetString("UserRole") == "User")
                     {
@@ -70,8 +70,8 @@
 
     <footer class="footer mt-5 py-3" style="background-color:#161b22;">
         <div class="container text-center">
-            <span class="text-muted">
-                © 2026 Vrittiy • Built with ASP.NET Core
+            <span class="text-white">
+                © 2026 Vrittiy.COM • Built with ASP.NET Core
             </span>
         </div>
     </footer>

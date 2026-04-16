@@ -13,7 +13,6 @@ namespace Vrittiy.API.Controllers
         
         
         private readonly AppDbContext _context;
-
         public AuthController(AppDbContext context) 
         {  
             _context = context; 

@@ -1,102 +1,152 @@
+/* ================= GLOBAL RESET ================= */
 * {
     transition: all 0.2s ease;
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
-}
-
-
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
-
-
-/* ================= DARK THEME START ================= */
-
-body {
+    margin-bottom: 60px;
     background-color: #0d1117;
-    color: #e6edf3;
+    color: #ffffff; /* PRIMARY TEXT = PURE WHITE */
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* Navbar */
+/* ================= TEXT SYSTEM ================= */
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Paragraphs */
+p {
+    color: #e6edf3; /* readable light text */
+}
+
+/* Secondary text */
+small {
+    color: #b1bac4;
+}
+
+/* Labels / strong */
+strong, label {
+    color: #ffffff;
+}
+
+/* Links */
+a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #79c0ff;
+    }
+
+/* ================= NAVBAR ================= */
+
 .navbar {
     background-color: #161b22 !important;
     border-bottom: 1px solid #30363d;
 }
 
-.navbar-brand, .nav-link {
-    color: #e6edf3 !important;
+.navbar-brand {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.nav-link {
+    color: #c9d1d9 !important;
+    margin-left: 10px;
 }
 
     .nav-link:hover {
         color: #58a6ff !important;
     }
 
-/* Cards */
+/* ================= CARDS ================= */
+
 .card {
     background-color: #161b22;
     border: 1px solid #30363d;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(88, 166, 255, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(88, 166, 255, 0.08);
 }
 
     .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
     }
-
 
 /* Title */
 .card-title {
-    color: #58a6ff; /* Bright blue */
+    color: #58a6ff;
     font-weight: 600;
+    text-shadow: 0 0 5px rgba(88, 166, 255, 0.3);
 }
 
 /* Description */
 .card p {
-    color: #c9d1d9; /* Light gray-white */
-}
-
-/* Location / small text */
-.card small {
-    color: #8b949e; /* softer gray */
-}
-
-/* Strong text (like location label) */
-.card strong {
     color: #e6edf3;
 }
 
-/* Buttons */
+/* ================= CARD LAYOUT ================= */
+
+/* Make cards equal height */
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make content stretch */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Limit description to 5 lines */
+.job-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #e6edf3;
+    line-height: 1.5;
+}
+
+/* Push button to bottom */
+.card .btn {
+    margin-top: auto;
+}
+
+/* Secondary info */
+.card small {
+    color: #b1bac4;
+}
+
+/* ================= BUTTONS ================= */
+
 .btn-primary {
     background-color: #238636;
     border: none;
+    color: #ffffff;
+    font-weight: 500;
 }
 
     .btn-primary:hover {
@@ -113,34 +163,67 @@ body {
         color: #0d1117;
     }
 
-/* Inputs */
+/* ================= INPUTS ================= */
+
+
+/* Placeholder */
+::placeholder {
+    color: #8b949e !important; 
+    opacity: 1;
+}
+
+.form-control::placeholder {
+    color: #8b949e !important;
+}
+
 .form-control {
-    background-color: #0d1117;
-    color: #e6edf3;
+    background-color: #0d1117 !important;
+    color: #ffffff !important;
     border: 1px solid #30363d;
 }
 
     .form-control:focus {
-        background-color: #0d1117;
-        color: #fff;
+        background-color: #0d1117 !important;
+        color: #ffffff !important;
         border-color: #58a6ff;
         box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+        outline: none;
     }
 
-/* Links */
-a {
-    color: #58a6ff;
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #0d1117 inset !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
 
-    a:hover {
-        color: #79c0ff;
-    }
+/* ================= FOOTER ================= */
 
-/* Footer */
 .footer {
     background-color: #161b22;
     border-top: 1px solid #30363d;
-    color: #8b949e;
+    color: #fcfeff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
 }
 
-/* ================= DARK THEME END ================= */
+/* ================= UTILITIES ================= */
+
+.container {
+    max-width: 1100px;
+}
+
+/* Spacing improvements */
+.mt-4 {
+    margin-top: 2rem !important;
+}
+
+/* ================= ANIMATIONS ================= */
+
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .card:hover {
+        transform: scale(1.02);
+    }

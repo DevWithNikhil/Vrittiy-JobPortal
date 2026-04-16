@@ -26,8 +26,7 @@ public class JobsController : Controller
         return View(jobs);
     }
 
-
-    public IActionResult Apply(int id)
+    public async Task<IActionResult> Apply(int id)
     {
         var role = HttpContext.Session.GetString("UserRole");
 
@@ -36,8 +35,11 @@ public class JobsController : Controller
             return RedirectToAction("Index", "Home");
         }
 
-        ViewBag.JobId = id;
-        return View();
+        var data = await _api.GetAsync($"jobs/{id}");
+
+        var job = JsonConvert.DeserializeObject<dynamic>(data);
+
+        return View(job);
     }
 
     [HttpPost]

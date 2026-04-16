@@ -4,6 +4,7 @@ using System.Security.Claims;
 using Vrittiy.Core.Entities;
 using Vrittiy.Infrastructure.Data;
 
+
 [ApiController]
 [Route("api/[controller]")]
 public class ApplicationsController : ControllerBase
@@ -14,6 +15,7 @@ public class ApplicationsController : ControllerBase
     {
         _context = context;
     }
+
 
     [HttpPost("apply")]
     [Authorize(Roles = "User")]
@@ -34,6 +36,7 @@ public class ApplicationsController : ControllerBase
         return Ok("Applied Successfully");
     }
 
+
     [Authorize(Roles = "User")]
     [HttpGet("my")]
     public IActionResult MyApplications()
@@ -45,13 +48,15 @@ public class ApplicationsController : ControllerBase
             .Select(x => new
             {
                 x.Id,
-                x.JobId,
+                JobTitle = x.Job.Title,
+                JobLocation = x.Job.Location,
                 x.ResumePath
             })
             .ToList();
 
         return Ok(data);
     }
+
 
     [Authorize(Roles = "Recruiter")]
     [HttpGet("job/{jobId}")]
@@ -70,6 +75,7 @@ public class ApplicationsController : ControllerBase
 
         return Ok(data);
     }
+
 
     [Authorize(Roles = "Recruiter")]
     [HttpGet("my-jobs")]

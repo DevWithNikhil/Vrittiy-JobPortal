@@ -1,24 +1,37 @@
 ﻿@model List<dynamic>
 
 @{
-    ViewData["Title"] = "MyApplications";
+    ViewData["Title"] = "My Applications";
 }
 
+<div class="container mt-5">
+    <h2 class="mb-4">My Applications</h2>
 
-<h2>My Applications</h2>
-
-@if (Model.Count == 0)
-{
-    <p>No applications found.</p>
-}
-else
-{
-    @foreach (var item in Model)
+    @if (Model.Count == 0)
     {
-        <div style="border:1px solid gray; padding:10px; margin:10px;">
-            <p><b>Application ID:</b> @item.id</p>
-            <p><b>Job ID:</b> @item.jobId</p>
-            <p><b>Resume:</b> @item.resumePath</p>
+        <div class="alert alert-dark">No applications found.</div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.jobTitle</h5>
+
+                            <small>
+                                <strong>Location:</strong> @item.jobLocation
+                            </small>
+                            <br/>
+                            <a href="/resumes/@item.resumePath" target="_blank" class="btn btn-outline-light btn-sm mt-2">
+                                View Resume
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     }
-}
+</div>

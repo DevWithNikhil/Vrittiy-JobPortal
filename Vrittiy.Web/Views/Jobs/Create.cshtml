@@ -1,14 +1,44 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="container mt-5">
+    <div class="card mx-auto" style="max-width:500px;">
+        <div class="card-body">
+            <h3 class="mb-4 text-center">Post a Job</h3>
 
-<form method="post">
-    <input name="title" placeholder="Title" />
-    <input name="description" />
-    <input name="location" />
+            <form method="post" onkeydown="return event.key != 'Enter' || event.target.tagName === 'TEXTAREA';">
 
-    <button type="submit">Post Job</button>
-</form>
+                <div class="mb-3">
+                    <input name="title" class="form-control" placeholder="Job Title/Position/Role" />
+                </div>
+
+                <div class="mb-3">
+                    <textarea name="description"
+                              class="form-control"
+                              rows="6"
+                              placeholder="Enter job details...
+
+                                    Example:
+                                    • Company Name:
+                                    • Skills:
+                                    • Education:
+                                    • Experience:
+                                    • Other Details:
+
+                               You can write in multiple lines.">
+                           </textarea>
+                    <small class="d-block mt-2">
+                        Tip: Use Enter for new lines. You can write like bullet points using • or -
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <input name="location" class="form-control" placeholder="Location/Full Address" />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Post Job</button>
+            </form>
+        </div>
+    </div>
+</div>

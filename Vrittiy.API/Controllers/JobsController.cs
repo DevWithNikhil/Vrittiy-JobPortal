@@ -12,11 +12,11 @@ namespace Vrittiy.API.Controllers;
 public class JobsController : ControllerBase
 {
     private readonly AppDbContext _context;
-
     public JobsController(AppDbContext context)
     {
         _context = context;
     }
+
 
     [HttpGet]
     public IActionResult GetJobs()
@@ -25,6 +25,7 @@ public class JobsController : ControllerBase
 
         return Ok(jobs);
     }
+
 
     [Authorize(Roles = "Recruiter")]
     [HttpPost]
@@ -43,5 +44,26 @@ public class JobsController : ControllerBase
         _context.SaveChanges();
 
         return Ok("Job Created");
+    }
+
+
+    [HttpGet("{id}")]
+    public IActionResult GetJobById(int id)
+    {
+        var job = _context.Jobs
+            .Where(x => x.Id == id)
+            .Select(x => new
+            {
+                x.Id,
+                x.Title,
+                x.Description,
+                x.Location
+            })
+            .FirstOrDefault();
+
+        if (job == null)
+            return NotFound();
+
+        return Ok(job);
     }
 }
